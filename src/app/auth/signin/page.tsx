@@ -2,7 +2,7 @@ import AuthContainer from "@/components/AuthContainer/AuthContainer";
 
 import AuthNavbar from "@/components/AuthNavbar/AuthNavbar";
 import PlatformsContainer from "@/components/PlatformsContainer/PlatformsContainer";
-import SigninForm from "../app/auth/signin/_components/signin-form";
+import SigninForm from "./_components/signin-form";
 
 export default function Page() {
   return (

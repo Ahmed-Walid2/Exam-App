@@ -2,7 +2,7 @@ import AuthContainer from "@/components/AuthContainer/AuthContainer";
 
 import AuthNavbar from "@/components/AuthNavbar/AuthNavbar";
 import PlatformsContainer from "@/components/PlatformsContainer/PlatformsContainer";
-import SigninForm from "../app/auth/signin/_components/signin-form";
+import ForgotPasswordForm from "./_components/forgot-password-form";
 
 export default function Page() {
   return (
@@ -15,7 +15,7 @@ export default function Page() {
         <AuthNavbar />
 
         {/* Form */}
-        <SigninForm />
+        <ForgotPasswordForm />
 
         {/* Platforms Login Links */}
         <PlatformsContainer />

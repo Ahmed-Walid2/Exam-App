@@ -1,8 +1,7 @@
 import AuthContainer from "@/components/AuthContainer/AuthContainer";
-
 import AuthNavbar from "@/components/AuthNavbar/AuthNavbar";
 import PlatformsContainer from "@/components/PlatformsContainer/PlatformsContainer";
-import SigninForm from "../app/auth/signin/_components/signin-form";
+import SetNewPwForm from "./_components/set-new-pw-form";
 
 export default function Page() {
   return (
@@ -11,11 +10,12 @@ export default function Page() {
       <AuthContainer />
 
       {/* Right Side */}
-      <div className=" lg:px-[80px] py-[80px] flex flex-col ">
+      <div className=" p-[80px] flex flex-col">
         <AuthNavbar />
 
         {/* Form */}
-        <SigninForm />
+
+        <SetNewPwForm />
 
         {/* Platforms Login Links */}
         <PlatformsContainer />
