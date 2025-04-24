@@ -3,7 +3,7 @@
 import { useState } from "react";
 import useQuestions from "../_hooks/useQuestions";
 import Spinner from "@/components/Spinner/Spinner";
-import { Form, SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AnswersFields, questionSchema } from "@/lib/schemes/questions.schema";
 import {
