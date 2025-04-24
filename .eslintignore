@@ -1,9 +1,0 @@
-# Ignore all files inside the 'src/app' directory
-src/app/
-
-# Ignore specific files
-src/app/not-found.tsx
-src/app/student/select-diploma/_components/questions-form.tsx
-
-# Ignore all .tsx files inside the src/app folder
-src/app/**/*.tsx
