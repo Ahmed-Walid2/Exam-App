@@ -31,7 +31,8 @@ export default async function Page() {
                   (exam.title === "JavaScript Quiz" && skillJS) ||
                   (exam.title === "CSS Quiz" && skillCSS) ||
                   (exam.title === "HTML Quiz" && skillHTML) ||
-                  (exam.title === "React Quiz" && skillReact)
+                  (exam.title === "React Quiz" && skillReact) ||
+                  ""
                 }
                 alt="Exam Icon"
                 width={70}

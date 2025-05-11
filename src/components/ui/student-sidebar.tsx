@@ -17,7 +17,7 @@ import StudentSidebarLinks from "../StudentSidebarLinks/StudentSidebarLinks";
 export default function StudentSidebar() {
   return (
     <>
-      <Sidebar>
+      <Sidebar collapsible="icon">
         <SidebarHeader />
 
         <SidebarContent>

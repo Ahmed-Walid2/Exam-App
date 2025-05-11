@@ -2,22 +2,25 @@ import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 
 export default function useQuestions() {
-  // Params
   const searchParams = useSearchParams();
+  const examId = searchParams.get("exam");
 
-  // Qurires
   const { isLoading, error, data } = useQuery({
-    queryKey: ["questions"],
+    queryKey: ["questions", examId],
     queryFn: async () => {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API}/questions?${searchParams.toString()}`
+        `${process.env.NEXT_PUBLIC_API}/questions?exam=${examId}`
       );
       const payload: { questions: Question[]; message: string } =
         await response.json();
-      if ("code" in response) throw new Error(payload.message);
+      if (payload.questions.length === 0) {
+        throw new Error("No questions available for this exam.");
+      }
+      if (!response.ok) throw new Error(payload.message);
 
       return payload;
     },
+    enabled: !!examId,
   });
 
   return { isLoading, error, payload: data };

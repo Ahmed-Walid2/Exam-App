@@ -48,8 +48,6 @@ export default function QuestionsForm() {
   const currentQuestion = payload?.questions[step];
   const examTimer = payload?.questions[0].exam.duration;
 
-  console.log(examTimer);
-
   // Functions
   const onSubmit: SubmitHandler<AnswersFields> = (values) => {
     console.log(values);
@@ -175,17 +173,18 @@ export default function QuestionsForm() {
 
       {/* Steps */}
       <ul className="flex justify-between">
-        {Array.from({ length: payload?.questions.length }, (_, i) => i).map(
-          (i) => (
-            <li
-              key={i}
-              className={cn(
-                "size-2 bg-gray-400 rounded-full",
-                step >= i && "bg-primary-color"
-              )}
-            ></li>
-          )
-        )}
+        {Array.from(
+          { length: payload?.questions.length ?? 0 },
+          (_, i) => i
+        ).map((i) => (
+          <li
+            key={i}
+            className={cn(
+              "size-2 bg-gray-400 rounded-full",
+              step >= i && "bg-primary-color"
+            )}
+          ></li>
+        ))}
       </ul>
 
       {/* Form */}
@@ -271,9 +270,13 @@ export default function QuestionsForm() {
 
                 return true;
               })()}
-              type={step < payload?.questions?.length - 1 ? "button" : "submit"}
+              type={
+                step < (payload?.questions?.length ?? 0) - 1
+                  ? "button"
+                  : "submit"
+              }
               onClick={() => {
-                if (step === payload?.questions?.length - 1) return;
+                if (step === (payload?.questions?.length ?? 0) - 1) return;
 
                 const nextAnswer = form.getValues(`answers.${step + 1}`);
 

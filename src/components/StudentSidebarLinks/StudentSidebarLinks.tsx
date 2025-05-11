@@ -34,7 +34,15 @@ export default function StudentSidebarLinks() {
       {items.map((item) => (
         <SidebarMenuItem className="mb-[32px]" key={item.title}>
           {item.title === "Log Out" ? (
-            <SidebarMenuButton asChild>
+            <SidebarMenuButton
+              asChild
+              tooltip={{
+                children: item.title,
+                side: "right",
+                align: "center",
+                className: "font-medium  text-primary-color",
+              }}
+            >
               <button
                 onClick={() => signOut({ callbackUrl: "/auth/signin" })}
                 className="sm:hover:bg-primary-color student-sidebar-link transition-all flex items-center w-full text-left rounded-md gap-2 p-2"
@@ -44,7 +52,15 @@ export default function StudentSidebarLinks() {
               </button>
             </SidebarMenuButton>
           ) : (
-            <SidebarMenuButton asChild>
+            <SidebarMenuButton
+              asChild
+              tooltip={{
+                children: item.title,
+                side: "right",
+                align: "center",
+                className: "font-medium  text-primary-color",
+              }}
+            >
               <Link
                 className="sm:hover:bg-primary-color student-sidebar-link transition-all"
                 href={item.url}

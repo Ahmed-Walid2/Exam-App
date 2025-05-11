@@ -3,12 +3,12 @@ import { Timer } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 type Props = {
-  examTimer: number; // in minutes
+  examTimer?: number; // in minutes
   onTimerEnd?: () => void;
 };
 
 export default function ExamDuration({ examTimer, onTimerEnd }: Props) {
-  const [timeLeft, setTimeLeft] = useState(examTimer * 60);
+  const [timeLeft, setTimeLeft] = useState((examTimer ?? 0) * 60);
   const hasEnded = useRef(false); // to ensure onTimerEnd runs only once
 
   useEffect(() => {
