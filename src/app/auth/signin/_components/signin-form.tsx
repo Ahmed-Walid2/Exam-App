@@ -1,19 +1,13 @@
 "use client";
-import { Button } from "../../../../components/ui/button";
-import { Input } from "../../../../components/ui/input";
+
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { signinSchema, signinType } from "@/lib/schemes/auth.schema";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { signinSchema, SigninType } from "@/lib/schemes/auth.schema";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 
@@ -22,8 +16,9 @@ export default function SigninForm() {
   const [isPwShown, setIsPwShown] = useState(false);
   const [msg, setMsg] = useState("");
   const [succMsg, setSuccMsg] = useState("");
+
   // Form
-  const form = useForm<signinType>({
+  const form = useForm<SigninType>({
     defaultValues: {
       email: "",
       password: "",
@@ -32,10 +27,7 @@ export default function SigninForm() {
   });
 
   // Functions
-  const onSubmit: SubmitHandler<signinType> = async (values: {
-    email: string;
-    password: string;
-  }) => {
+  const onSubmit: SubmitHandler<SigninType> = async (values) => {
     const response = await signIn("credentials", {
       callbackUrl: "/",
       redirect: false,
@@ -44,28 +36,22 @@ export default function SigninForm() {
     });
 
     if (response?.ok) {
-      setSuccMsg("You have been login successful");
+      setSuccMsg("You have been logged in successfully!");
       setMsg("");
-      window.location.href = "/student/dashboard";
+
+      window.location.href = "/student/dashboard"; // Should be delayed
     } else {
-      console.log("errorrrr");
-      setMsg("Something Went Wrong");
+      setMsg(response?.error || "Something went wrong");
       setSuccMsg("");
     }
-
-    console.log(response);
   };
 
   return (
     <>
       <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="pt-[160px] flex flex-col"
-        >
-          <h2 className="text-2xl font-bold pb-[32px] text-center lg:text-start">
-            Sign in
-          </h2>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="pt-[160px] flex flex-col">
+          {/* Title */}
+          <h2 className="text-2xl font-bold pb-[32px] text-center lg:text-start">Sign in</h2>
 
           {/* Email */}
           <FormField
@@ -79,11 +65,7 @@ export default function SigninForm() {
                 {/* Input */}
                 <FormControl>
                   <Input
-                    className={`${
-                      form.formState.errors.email?.message
-                        ? "focus:border-error-color"
-                        : ""
-                    } `}
+                    className={`${form.formState.errors.email?.message ? "focus:border-error-color" : ""} `}
                     {...field}
                     placeholder="Enter Email"
                     type="email"
@@ -91,7 +73,7 @@ export default function SigninForm() {
                 </FormControl>
 
                 {/* Validation Msg */}
-                <FormMessage></FormMessage>
+                <FormMessage />
               </FormItem>
             )}
           />
@@ -112,16 +94,12 @@ export default function SigninForm() {
                       {...field}
                       placeholder="Enter Password"
                       type={isPwShown ? "text" : "password"}
-                      className={`${
-                        form.formState.errors.password?.message
-                          ? "focus:border-error-color"
-                          : ""
-                      } `}
+                      className={`${form.formState.errors.password?.message ? "focus:border-error-color" : ""} `}
                     />
                   </FormControl>
 
                   {/* Validation Msg */}
-                  <FormMessage></FormMessage>
+                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -143,28 +121,16 @@ export default function SigninForm() {
           </div>
 
           {/* Submit Msg */}
-          {msg && (
-            <p className="capitalize text-center font-medium mb-2 text-error-color w-[300px] beak-all self-center">
-              {msg}
-            </p>
-          )}
+          {msg && <p className="capitalize text-center font-medium mb-2 text-error-color w-[300px] beak-all self-center">{msg}</p>}
 
-          {succMsg && (
-            <p className="capitalize text-center font-medium mb-2 text-green-500 w-[300px] beak-all self-center">
-              {succMsg}
-            </p>
-          )}
+          {succMsg && <p className="capitalize text-center font-medium mb-2 text-green-500 w-[300px] beak-all self-center">{succMsg}</p>}
 
           <p className="text-primary-color text-center lg:text-end mb-[40px] block mt-[16px]">
-            <Link href="/auth/forgot-password">Recover Password ?</Link>
+            <Link href="/auth/forgot-password">Recover Password?</Link>
           </p>
 
           {/* Button */}
-          <Button
-            type="submit"
-            className="mb-[30px]"
-            disabled={form.formState.isSubmitted && !form.formState.isValid}
-          >
+          <Button type="submit" className="mb-[30px]" disabled={form.formState.isSubmitted && !form.formState.isValid}>
             Sign in
           </Button>
         </form>

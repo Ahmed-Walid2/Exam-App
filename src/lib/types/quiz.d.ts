@@ -5,7 +5,7 @@ declare type ExamApiType = {
 };
 
 declare type Exam = {
-  _id: string;
+  _id: string; // Should be extended
   title: string;
   duration: number;
   subject: string;

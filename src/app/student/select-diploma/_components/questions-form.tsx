@@ -2,22 +2,17 @@
 
 import { useState } from "react";
 import useQuestions from "../_hooks/useQuestions";
-import Spinner from "@/components/Spinner/Spinner";
+import Spinner from "@/components/custom/Spinner";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AnswersFields, questionSchema } from "@/lib/schemes/questions.schema";
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from "@/components/ui/form";
+import { FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
 
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 import { FormProvider } from "react-hook-form";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/cn";
 import useCheckQuestions from "../_hooks/useCheckQuestions";
 import { useRouter } from "next/navigation";
 import ExamDuration from "./exam-duration";
@@ -81,8 +76,7 @@ export default function QuestionsForm() {
 
   // Skeleton
   if (isLoading) return <Spinner />;
-  if (error)
-    return <p className="text-red-500 text-center">Something Went Wrong</p>;
+  if (error) return <p className="text-red-500 text-center">{error.message}</p>;
 
   // Show Result Modal
   if (showResult && score) {
@@ -94,10 +88,7 @@ export default function QuestionsForm() {
         <h2 className="text-xl font-semibold  mb-[48px]">Your score</h2>
         <div className="div flex  items-center justify-center gap-20">
           <div className="w-24 h-24 relative text-center">
-            <svg
-              className="absolute top-0 left-0 w-full h-full"
-              viewBox="0 0 36 36"
-            >
+            <svg className="absolute top-0 left-0 w-full h-full" viewBox="0 0 36 36">
               <path
                 className="text-gray-300"
                 d="M18 2.0845
@@ -117,9 +108,7 @@ export default function QuestionsForm() {
                 strokeWidth="3"
               />
             </svg>
-            <span className="absolute inset-0 flex items-center justify-center font-semibold text-lg">
-              {percentage}%
-            </span>
+            <span className="absolute inset-0 flex items-center justify-center font-semibold text-lg">{percentage}%</span>
           </div>
           <div className="buttons flex flex-col gap-4">
             <div className="correct flex gap-8 items-center justify-center">
@@ -130,9 +119,7 @@ export default function QuestionsForm() {
             </div>
             <div className="incorrect flex gap-8 items-center justify-center">
               <p className="text-red-600 text-xl">Incorrect</p>
-              <p className="text-red-600 rounded-full border border-red-600 size-[30px] content-center text-center">
-                {score.incorrect}
-              </p>
+              <p className="text-red-600 rounded-full border border-red-600 size-[30px] content-center text-center">{score.incorrect}</p>
             </div>
           </div>
         </div>
@@ -144,10 +131,7 @@ export default function QuestionsForm() {
           >
             Back
           </Button> */}
-          <Button
-            className="w-[150px] lg:w-[150px] h-[56px]"
-            onClick={() => router.push("/student/quiz-history")}
-          >
+          <Button className="w-[150px] lg:w-[150px] h-[56px]" onClick={() => router.push("/student/quiz-history")}>
             Show results
           </Button>
         </div>
@@ -173,17 +157,8 @@ export default function QuestionsForm() {
 
       {/* Steps */}
       <ul className="flex justify-between">
-        {Array.from(
-          { length: payload?.questions.length ?? 0 },
-          (_, i) => i
-        ).map((i) => (
-          <li
-            key={i}
-            className={cn(
-              "size-2 bg-gray-400 rounded-full",
-              step >= i && "bg-primary-color"
-            )}
-          ></li>
+        {Array.from({ length: payload?.questions.length ?? 0 }, (_, i) => i).map((i) => (
+          <li key={i} className={cn("size-2 bg-gray-400 rounded-full", step >= i && "bg-primary-color")}></li>
         ))}
       </ul>
 
@@ -196,9 +171,7 @@ export default function QuestionsForm() {
             render={({ field }) => (
               <FormItem>
                 {/* Label */}
-                <FormLabel className="text-lg">
-                  {currentQuestion?.question}
-                </FormLabel>
+                <FormLabel className="text-lg">{currentQuestion?.question}</FormLabel>
                 {/* Choices */}
                 <FormControl>
                   <RadioGroup
@@ -211,24 +184,17 @@ export default function QuestionsForm() {
                       });
                     }}
                     name={currentQuestion?._id}
-                    className="flex flex-col space-y-1"
-                  >
+                    className="flex flex-col space-y-1">
                     {currentQuestion?.answers.map((answer) => (
                       <FormItem
                         key={answer.key}
-                        className="flex items-center space-x-3 space-y-0 rounded-md bg-[#EDEFF3] py-[16px] px-[8px] gap-4"
-                      >
+                        className="flex items-center space-x-3 space-y-0 rounded-md bg-[#EDEFF3] py-[16px] px-[8px] gap-4">
                         {/* Radio */}
                         <FormControl>
-                          <RadioGroupItem
-                            value={answer.key}
-                            className="text-[#02369C]"
-                          />
+                          <RadioGroupItem value={answer.key} className="text-[#02369C]" />
                         </FormControl>
                         {/* Label */}
-                        <FormLabel className="font-normal grow py-2">
-                          {answer.answer}
-                        </FormLabel>
+                        <FormLabel className="font-normal grow py-2">{answer.answer}</FormLabel>
                       </FormItem>
                     ))}
                   </RadioGroup>
@@ -240,8 +206,7 @@ export default function QuestionsForm() {
           {/* Buttons */}
           <div
             className="grid grid-cols-2 gap-2 mt-8 justify-items-center
-"
-          >
+">
             <Button
               type="button"
               onClick={() => {
@@ -256,8 +221,7 @@ export default function QuestionsForm() {
                 setStep((prev) => prev - 1);
               }}
               className="w-[150px] lg:w-[150px] h-[56px]"
-              disabled={isPending || step === 0}
-            >
+              disabled={isPending || step === 0}>
               Back
             </Button>
             <Button
@@ -270,11 +234,7 @@ export default function QuestionsForm() {
 
                 return true;
               })()}
-              type={
-                step < (payload?.questions?.length ?? 0) - 1
-                  ? "button"
-                  : "submit"
-              }
+              type={step < (payload?.questions?.length ?? 0) - 1 ? "button" : "submit"}
               onClick={() => {
                 if (step === (payload?.questions?.length ?? 0) - 1) return;
 
@@ -288,8 +248,7 @@ export default function QuestionsForm() {
 
                 setStep((prev) => prev + 1);
               }}
-              className="w-[150px] lg:w-[150px] h-[56px]"
-            >
+              className="w-[150px] lg:w-[150px] h-[56px]">
               Next
             </Button>
           </div>

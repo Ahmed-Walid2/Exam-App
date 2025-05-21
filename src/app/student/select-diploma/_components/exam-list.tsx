@@ -1,7 +1,7 @@
-import skillCSS from "../../../../../public/assets/images/CSS Quiz.png";
-import skillHTML from "../../../../../public/assets/images/skill-icons_html.png";
-import skillReact from "../../../../../public/assets/images/react quiz.png";
-import skillJS from "../../../../../public/assets/images/js.png";
+import skillCSS from "@assets/images/CSS-Quiz.png";
+import skillHTML from "@assets/images/skill-icons_html.png";
+import skillReact from "@assets/images/react-quiz.png";
+import skillJS from "@assets/images/js.png";
 import Image from "next/image";
 import getExams from "../api/exam.api";
 import QuestionsDialog from "./questions-dialog";

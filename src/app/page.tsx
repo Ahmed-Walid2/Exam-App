@@ -1,7 +1,7 @@
-import AuthContainer from "@/components/AuthContainer/AuthContainer";
+import AuthContainer from "@/components/layout/auth-layout/AuthContainer";
 
-import AuthNavbar from "@/components/AuthNavbar/AuthNavbar";
-import PlatformsContainer from "@/components/PlatformsContainer/PlatformsContainer";
+import AuthNavbar from "@/components/layout/auth-layout/AuthNavbar";
+import PlatformsContainer from "@/components/features/auth/PlatformsContainer";
 import SigninForm from "../app/auth/signin/_components/signin-form";
 
 export default function Page() {

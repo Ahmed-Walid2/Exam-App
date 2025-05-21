@@ -1,9 +1,9 @@
 "use server";
 
 import { JSON_HEADER } from "@/lib/constants/api.constant";
-import { signupType } from "@/lib/schemes/auth.schema";
+import { SignupType } from "@/lib/schemes/auth.schema";
 
-export async function signupAction(values: signupType) {
+export async function signupAction(values: SignupType) {
   const response = await fetch(`${process.env.API}/auth/signup`, {
     method: "POST",
     headers: {

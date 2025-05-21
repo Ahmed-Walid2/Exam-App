@@ -24,11 +24,13 @@ export const authOptions: NextAuthOptions = {
             ...JSON_HEADER,
           },
         });
+
         const payload: ApiResponse<LoginResponse> = await response.json();
-        console.log(payload);
+
         if ("code" in payload) {
           throw new Error(payload.message);
         }
+
         return {
           id: payload.user._id,
           token: payload.token,
@@ -48,6 +50,7 @@ export const authOptions: NextAuthOptions = {
     },
     session: ({ session, token }) => {
       session.user = token.user;
+
       return session;
     },
   },

@@ -1,16 +1,9 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { forgotPwSchema, forgotPwType } from "@/lib/schemes/auth.schema";
+import { forgotPwSchema, ForgotPwType } from "@/lib/schemes/auth.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -24,7 +17,7 @@ export default function ForgotPasswordForm() {
   const router = useRouter();
 
   // Form
-  const form = useForm<forgotPwType>({
+  const form = useForm<ForgotPwType>({
     defaultValues: {
       email: "",
     },
@@ -32,7 +25,7 @@ export default function ForgotPasswordForm() {
   });
 
   // Functions
-  const onSubmit: SubmitHandler<forgotPwType> = async (values) => {
+  const onSubmit: SubmitHandler<ForgotPwType> = async (values) => {
     console.log(values);
     const response = await forgotPwAction(values);
     console.log(response);
@@ -47,13 +40,8 @@ export default function ForgotPasswordForm() {
   return (
     <>
       <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="pt-[160px] flex flex-col  lg:flex"
-        >
-          <h2 className="text-2xl font-bold pb-[32px] text-center lg:text-start">
-            Forgot your password?
-          </h2>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="pt-[160px] flex flex-col  lg:flex">
+          <h2 className="text-2xl font-bold pb-[32px] text-center lg:text-start">Forgot your password?</h2>
           {/* Email */}
           <FormField
             name="email"
@@ -69,11 +57,7 @@ export default function ForgotPasswordForm() {
                     {...field}
                     placeholder="Enter Email"
                     type="email"
-                    className={`${
-                      form.formState.errors.email?.message
-                        ? "focus:border-error-color border-error-color"
-                        : ""
-                    } `}
+                    className={`${form.formState.errors.email?.message ? "focus:border-error-color border-error-color" : ""} `}
                   />
                 </FormControl>
 
@@ -84,26 +68,12 @@ export default function ForgotPasswordForm() {
           />
 
           {/* Submit Msg */}
-          {msg && (
-            <p className="capitalize text-center font-medium mb-2 text-error-color w-[300px] beak-all self-center">
-              {msg}
-            </p>
-          )}
+          {msg && <p className="capitalize text-center font-medium mb-2 text-error-color w-[300px] beak-all self-center">{msg}</p>}
 
-          {succMsg && (
-            <p className="capitalize text-center font-medium mb-2 text-green-500 w-[300px] beak-all self-center">
-              {succMsg}
-            </p>
-          )}
-          <p className="text-primary-color mb-[40px] text-center lg:text-end">
-            Recover Password ?
-          </p>
+          {succMsg && <p className="capitalize text-center font-medium mb-2 text-green-500 w-[300px] beak-all self-center">{succMsg}</p>}
+          <p className="text-primary-color mb-[40px] text-center lg:text-end">Recover Password ?</p>
           {/* Button */}
-          <Button
-            type="submit"
-            disabled={form.formState.isSubmitted && !form.formState.isValid}
-            className="mb-[30px]"
-          >
+          <Button type="submit" disabled={form.formState.isSubmitted && !form.formState.isValid} className="mb-[30px]">
             Sign in
           </Button>
         </form>

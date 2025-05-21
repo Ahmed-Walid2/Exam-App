@@ -1,9 +1,9 @@
 "use server";
 
 import { JSON_HEADER } from "@/lib/constants/api.constant";
-import { setNewPwType } from "@/lib/schemes/auth.schema";
+import { SetNewPwType } from "@/lib/schemes/auth.schema";
 
-export async function setNewPwAction(values: setNewPwType) {
+export async function setNewPwAction(values: SetNewPwType) {
   const response = await fetch(`${process.env.API}/auth/resetPassword`, {
     method: "PUT",
     headers: {

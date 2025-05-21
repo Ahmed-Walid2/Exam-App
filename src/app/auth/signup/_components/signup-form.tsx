@@ -1,16 +1,9 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { signupSchema, signupType } from "@/lib/schemes/auth.schema";
+import { signupSchema, SignupType } from "@/lib/schemes/auth.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
@@ -18,6 +11,7 @@ import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { signupAction } from "../_actions/signup.action";
 import { useRouter } from "next/navigation";
+import { cn } from "@/lib/utils/cn";
 
 export default function SignupForm() {
   // States
@@ -28,7 +22,7 @@ export default function SignupForm() {
   const router = useRouter();
 
   // Form
-  const form = useForm<signupType>({
+  const form = useForm<SignupType>({
     defaultValues: {
       username: "",
       firstName: "",
@@ -42,7 +36,7 @@ export default function SignupForm() {
   });
 
   // Functions
-  const onSubmit: SubmitHandler<signupType> = async (values) => {
+  const onSubmit: SubmitHandler<SignupType> = async (values) => {
     console.log(values);
     const response = await signupAction(values);
     console.log(response);
@@ -58,13 +52,8 @@ export default function SignupForm() {
   return (
     <>
       <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="pt-[31px] flex flex-col lg:flex"
-        >
-          <h2 className="text-2xl font-bold pb-[32px] text-center lg:text-start">
-            Sign up
-          </h2>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="pt-[31px] flex flex-col lg:flex">
+          <h2 className="text-2xl font-bold pb-[32px] text-center lg:text-start">Sign up</h2>
 
           {/* Username */}
           <FormField
@@ -79,11 +68,7 @@ export default function SignupForm() {
                 <FormControl>
                   <Input
                     {...field}
-                    className={`${
-                      form.formState.errors.username?.message
-                        ? "focus:border-error-color border-error-color"
-                        : ""
-                    } `}
+                    className={`${form.formState.errors.username?.message ? "focus:border-error-color border-error-color" : ""} `}
                     placeholder="Username"
                     type="text"
                   />
@@ -109,11 +94,7 @@ export default function SignupForm() {
                   <Input
                     {...field}
                     placeholder="First Name"
-                    className={`${
-                      form.formState.errors.firstName?.message
-                        ? "focus:border-error-color border-error-color"
-                        : ""
-                    } `}
+                    className={`${form.formState.errors.firstName?.message ? "focus:border-error-color border-error-color" : ""} `}
                     type="text"
                   />
                 </FormControl>
@@ -138,11 +119,7 @@ export default function SignupForm() {
                   <Input
                     {...field}
                     placeholder="Last Name"
-                    className={`${
-                      form.formState.errors.lastName?.message
-                        ? "focus:border-error-color border-error-color"
-                        : ""
-                    } `}
+                    className={cn(form.formState.errors.lastName?.message && "focus:border-error-color border-error-color")}
                     type="text"
                   />
                 </FormControl>
@@ -167,11 +144,7 @@ export default function SignupForm() {
                   <Input
                     {...field}
                     placeholder="Email"
-                    className={`${
-                      form.formState.errors.email?.message
-                        ? "focus:border-error-color border-error-color"
-                        : ""
-                    } `}
+                    className={`${form.formState.errors.email?.message ? "focus:border-error-color border-error-color" : ""} `}
                     type="email"
                   />
                 </FormControl>
@@ -198,11 +171,7 @@ export default function SignupForm() {
                       {...field}
                       placeholder="Password"
                       type={isPwShown ? "text" : "password"}
-                      className={`${
-                        form.formState.errors.password?.message
-                          ? "focus:border-error-color border-error-color"
-                          : ""
-                      } `}
+                      className={`${form.formState.errors.password?.message ? "focus:border-error-color border-error-color" : ""} `}
                     />
                   </FormControl>
 
@@ -244,11 +213,7 @@ export default function SignupForm() {
                       {...field}
                       placeholder="Confirm Password"
                       type={isConfirmPwShown ? "text" : "password"}
-                      className={`${
-                        form.formState.errors.rePassword?.message
-                          ? "focus:border-error-color border-error-color"
-                          : ""
-                      } `}
+                      className={`${form.formState.errors.rePassword?.message ? "focus:border-error-color border-error-color" : ""} `}
                     />
                   </FormControl>
 
@@ -289,11 +254,7 @@ export default function SignupForm() {
                   <Input
                     {...field}
                     placeholder="Phone"
-                    className={`${
-                      form.formState.errors.phone?.message
-                        ? "focus:border-error-color border-error-color"
-                        : ""
-                    } `}
+                    className={`${form.formState.errors.phone?.message ? "focus:border-error-color border-error-color" : ""} `}
                     type="tel"
                   />
                 </FormControl>
@@ -305,17 +266,9 @@ export default function SignupForm() {
           />
 
           {/* Submit Msg */}
-          {msg && (
-            <p className="capitalize text-center font-medium mb-2 text-error-color w-[300px] beak-all self-center">
-              {msg}
-            </p>
-          )}
+          {msg && <p className="capitalize text-center font-medium mb-2 text-error-color w-[300px] beak-all self-center">{msg}</p>}
 
-          {succMsg && (
-            <p className="capitalize text-center font-medium mb-2 text-green-500 w-[300px] beak-all self-center">
-              {succMsg}
-            </p>
-          )}
+          {succMsg && <p className="capitalize text-center font-medium mb-2 text-green-500 w-[300px] beak-all self-center">{succMsg}</p>}
 
           <p className=" text-center mb-[40px] font-medium text-center">
             Already have an account?
@@ -323,11 +276,7 @@ export default function SignupForm() {
               Login
             </Link>
           </p>
-          <Button
-            type="submit"
-            className="mb-[30px]"
-            disabled={form.formState.isSubmitted && !form.formState.isValid}
-          >
+          <Button type="submit" className="mb-[30px]" disabled={form.formState.isSubmitted && !form.formState.isValid}>
             Create Account
           </Button>
         </form>
