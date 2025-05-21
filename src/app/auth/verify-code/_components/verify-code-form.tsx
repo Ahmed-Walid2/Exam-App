@@ -1,22 +1,14 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { verifyCodeSchema, verifyCodeType } from "@/lib/schemes/auth.schema";
+import { verifyCodeSchema, VerifyCodeType } from "@/lib/schemes/auth.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
-import { verifyCodeAction } from "../_actions/verifyCode.action";
+import { verifyCodeAction } from "../_actions/verify-code.action";
 
 export default function VerifyCodeForm() {
   // States
@@ -25,7 +17,7 @@ export default function VerifyCodeForm() {
   const router = useRouter();
 
   // Form
-  const form = useForm<verifyCodeType>({
+  const form = useForm<VerifyCodeType>({
     defaultValues: {
       resetCode: "",
     },
@@ -33,7 +25,7 @@ export default function VerifyCodeForm() {
   });
 
   // Functions
-  const onSubmit: SubmitHandler<verifyCodeType> = async (values) => {
+  const onSubmit: SubmitHandler<VerifyCodeType> = async (values) => {
     console.log(values);
     const response = await verifyCodeAction(values);
     console.log(response);
@@ -46,74 +38,49 @@ export default function VerifyCodeForm() {
     }
   };
   return (
-    <>
-      <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="pt-[160px] flex flex-col lg:flex"
-        >
-          <h2 className="text-2xl font-bold pb-[32px] text-center lg:text-start">
-            Verify code
-          </h2>
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="pt-[160px] flex flex-col lg:flex">
+        <h2 className="text-2xl font-bold pb-[32px] text-center lg:text-start">Verify code</h2>
 
-          {/* Email */}
-          <FormField
-            name="resetCode"
-            control={form.control}
-            render={({ field }) => (
-              <FormItem className="mb-[16px]">
-                {/* Label */}
-                <FormLabel className="sr-only">Enter Code</FormLabel>
+        {/* Email */}
+        <FormField
+          name="resetCode"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem className="mb-[16px]">
+              {/* Label */}
+              <FormLabel className="sr-only">Enter Code</FormLabel>
 
-                {/* Input */}
-                <FormControl>
-                  <Input
-                    {...field}
-                    placeholder="Enter Code"
-                    type="text"
-                    className={`${
-                      form.formState.errors.resetCode?.message
-                        ? "focus:border-error-color border-error-color"
-                        : ""
-                    } `}
-                  />
-                </FormControl>
+              {/* Input */}
+              <FormControl>
+                <Input
+                  {...field}
+                  placeholder="Enter Code"
+                  type="text"
+                  className={`${form.formState.errors.resetCode?.message ? "focus:border-error-color border-error-color" : ""} `}
+                />
+              </FormControl>
 
-                {/* Validation Msg */}
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          {/* Submit Msg */}
-          {msg && (
-            <p className="capitalize text-center font-medium mb-2 text-error-color w-[300px] beak-all self-center">
-              {msg}
-            </p>
+              {/* Validation Msg */}
+              <FormMessage />
+            </FormItem>
           )}
+        />
 
-          {succMsg && (
-            <p className="capitalize text-center font-medium mb-2 text-green-500 w-[300px] beak-all self-center">
-              {succMsg}
-            </p>
-          )}
-          <p className=" text-center lg:text-end mb-[40px]">
-            Didn’t receive a code?
-            <Link href="#" className="text-primary-color">
-              Resend
-            </Link>
-          </p>
+        {/* Submit Msg */}
+        {msg && <p className="capitalize text-center font-medium mb-2 text-error-color w-[300px] beak-all self-center">{msg}</p>}
 
-          {/* Button */}
-          <Button
-            type="submit"
-            disabled={form.formState.isSubmitted && !form.formState.isValid}
-            className="mb-[30px]"
-          >
-            Verify
-          </Button>
-        </form>
-      </Form>
-    </>
+        {succMsg && <p className="capitalize text-center font-medium mb-2 text-green-500 w-[300px] beak-all self-center">{succMsg}</p>}
+        <p className=" text-center lg:text-end mb-[40px]">
+          Didn’t receive a code?
+          <button className="text-primary-color">Resend</button>
+        </p>
+
+        {/* Button */}
+        <Button type="submit" disabled={form.formState.isSubmitted && !form.formState.isValid} className="mb-[30px]">
+          Verify
+        </Button>
+      </form>
+    </Form>
   );
 }

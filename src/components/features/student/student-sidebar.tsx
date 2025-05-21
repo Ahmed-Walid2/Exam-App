@@ -11,8 +11,8 @@ import {
 
 import Image from "next/image";
 
-import Logo from "../../../public/assets/images/Elevate Logo.png";
-import StudentSidebarLinks from "../StudentSidebarLinks/StudentSidebarLinks";
+import Logo from "@assets/images/Elevate-Logo.png";
+import StudentSidebarLinks from "./StudentSidebarLinks";
 
 export default function StudentSidebar() {
   return (

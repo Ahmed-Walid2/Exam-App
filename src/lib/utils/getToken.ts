@@ -9,9 +9,11 @@ export async function getToken() {
       secret: process.env.NEXTAUTH_SECRET!,
       token: authToken,
     });
+
     return token;
   } catch (error) {
     void error;
+
     return null;
   }
 }

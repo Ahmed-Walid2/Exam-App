@@ -1,7 +1,7 @@
 import { Progress } from "@/components/ui/progress";
 import { CircleCheck, Clock, Flag } from "lucide-react";
 import Image from "next/image";
-import profilePic from "../../../../../public/assets/images/Profile Pic.jpg";
+import profilePic from "@assets/images/Profile-Pic.jpg";
 import { getToken } from "@/lib/utils/getToken";
 
 export default async function UserDetails() {
@@ -13,19 +13,11 @@ export default async function UserDetails() {
   return (
     <div className="px-[16px] flex  bg-white shadow-dashboard-container py-[32px]  rounded-2xl ml-[72px] w-[1062px] mb-[40px]">
       {/* User Image */}
-      <Image
-        className=" size-[216px] "
-        src={profilePic}
-        alt="Picture of the author"
-        width={216}
-        height={216}
-      />
+      <Image className=" size-[216px] " src={profilePic} alt="Picture of the author" width={216} height={216} />
 
       {/* User Details */}
       <div className="details-box pl-[56px] ">
-        <h4 className="text-primary-color text-3xl font-bold">
-          {`${userData?.user.firstName} ${userData?.user.lastName}`}
-        </h4>
+        <h4 className="text-primary-color text-3xl font-bold">{`${userData?.user.firstName} ${userData?.user.lastName}`}</h4>
         <div className="progress-div w-full py-[24px]">
           <Progress value={70} />
         </div>

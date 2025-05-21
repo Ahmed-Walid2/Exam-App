@@ -1,6 +1,6 @@
-import AuthContainer from "@/components/AuthContainer/AuthContainer";
-import AuthNavbar from "@/components/AuthNavbar/AuthNavbar";
-import PlatformsContainer from "@/components/PlatformsContainer/PlatformsContainer";
+import AuthContainer from "@/components/layout/auth-layout/AuthContainer";
+import AuthNavbar from "@/components/layout/auth-layout/AuthNavbar";
+import PlatformsContainer from "@/components/features/auth/PlatformsContainer";
 import VerifyCodeForm from "./_components/verify-code-form";
 
 export default function Page() {

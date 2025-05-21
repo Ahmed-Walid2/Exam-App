@@ -1,15 +1,15 @@
 import type { Config } from "tailwindcss";
+import tailwindAnimate from "tailwindcss-animate";
 
 const config: Config = {
   darkMode: ["class"],
-  content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
+  content: ["./src/pages/**/*.{js,ts,jsx,tsx,mdx}", "./src/components/**/*.{js,ts,jsx,tsx,mdx}", "./src/app/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
     extend: {
       colors: {
+        "custom-gray": {
+          50: "#F0F4FC",
+        },
         "primary-color": "var(--primary-color)",
         "text-color": "var(--text-color)",
         "sec-color": "var(--sec-color)",
@@ -29,8 +29,7 @@ const config: Config = {
           foreground: "hsl(var(--primary-foreground))",
         },
         backgroundImage: {
-          "img-gradient":
-            "linear-gradient(180deg, #FFF 0%, rgba(0, 0, 0, 0.5) 51.04%, red 100%)",
+          "img-gradient": "linear-gradient(180deg, #FFF 0%, rgba(0, 0, 0, 0.5) 51.04%, red 100%)",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
@@ -90,6 +89,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [tailwindAnimate],
 };
 export default config;
